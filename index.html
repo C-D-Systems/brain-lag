@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brain Lag</title>
+  <link rel="stylesheet" href="style.css?v=54">
+</head>
+<body>
+
+  <h1 class="site-title">Brain Lag</h1>
+
+
+  <!-- ===== TOP BAR: burn book + your art = gallery ===== -->
+  <div class="top-bar">
+
+    <!-- left: person (OR Books) holding the burn book (phrase room) -->
+    <nav class="side-links">
+      <div class="reader">
+
+        <a href="https://orbooks.com/about/" target="_blank" rel="noopener" class="reader-person">
+          <img src="or-books.png" alt="person reading – visit OR Books" height="300">
+        </a>
+
+        <a href="/burn-book-1/burn-book-1.html" class="reader-book">
+          <img src="burn-book.png" alt="the burn book – enter the phrase room">
+        </a>
+
+        <img src="or-books.png" alt="" class="reader-front" aria-hidden="true">
+
+      </div>
+    </nav>
+
+    <span class="symbol">+</span>
+
+    <!-- middle: your art (opens the Tally submission form) -->
+    <div class="art-wanted">
+      <a href="https://tally.so/r/5XXpjd" target="_blank" rel="noopener" class="punch-sign">
+        <img src="YOUR-ART.png" alt="submit your art" height="200">
+      </a>
+    </div>
+
+    <span class="symbol">=</span>
+
+    <!-- right: gallery -->
+    <nav class="side-links">
+      <a href="/Gallery/gallery.html" class="spotlit">
+        <img src="/Gallery/gallery-icon.jpeg" alt="gallery" height="200">
+      </a>
+    </nav>
+
+  </div>
+
+
+  <!-- ===== JUGGLER & WELCOME ===== -->
+  <img src="juggler.gif" alt="a little creature juggling brains" class="juggler">
+
+  <div class="intro-box">
+    <p class="intro">Welcome to my brain!</p>
+    <p class="intro">Click the book on the left, choose a phrase and make some art.</p>
+    <p class="intro">1 Phrase, Different Interpretations.</p>
+  </div>
+
+
+  <!-- ===== WHITEBOARD ===== -->
+  <img src="whiteboard.png" alt="I need art: send me a trashcan sticker" class="art-board">
+
+
+  <!-- ===== BOTTOM BAR: chat phone + guestbook ===== -->
+  <div class="bottom-bar">
+
+    <!-- left: telephone (opens the Switchboard chat) -->
+    <a href="#" id="chat-phone">
+      <img src="telephone.png" alt="Old telephone – open the chat">
+    </a>
+
+    <!-- right: guestbook -->
+    <a href="/Guest-Book/guestbook.html" id="guestbook-icon">
+      <img src="guestbook.png" alt="Kid reading a guestbook – go to the guestbook">
+    </a>
+
+  </div>
+
+
+  <!-- ===== THE SWITCHBOARD (phone booth chat, pops up from the telephone) ===== -->
+  <div id="switchboard" class="chat-popup">
+    <div class="booth">
+
+      <img src="phone-boothcutout.png" alt="" class="booth-img">
+
+      <div class="booth-chat">
+       <script id="cid0020000454229750068" data-cfasync="false" async src="//st.chatango.com/js/gz/emb.js" style="width: 100%;height: 100%;">{"handle":"brainlagswitchboard","arch":"js","styles":{"a":"2A0A3D","b":100,"c":"e6dcff","d":"ff6666","e":"2a0a3d","g":"e6dcff","h":"ffffff","k":"b89ad9","l":"6b1f8f","m":"2A0A3D","n":"FFFFFF","p":"10","q":"6b1f8f","r":100,"sbc":"ffffff","surl":0,"cnrs":"0.35","fwtickm":1}}</script>
+      </div>
+
+      <div class="booth-footer">
+        <a href="#" class="chat-hangup">hang up</a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ===== PUNCH HOLE EFFECT ===== -->
+  <script>
+    document.querySelectorAll('.punch-sign').forEach(function (sign) {
+      sign.addEventListener('click', function (e) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        e.preventDefault();
+        if (sign.classList.contains('punched')) return;
+
+        // where the hit landed (center of the sign if they used the keyboard)
+        var box = sign.getBoundingClientRect();
+        var x = e.detail === 0 ? box.width / 2 : e.clientX - box.left;
+        var y = e.detail === 0 ? box.height / 2 : e.clientY - box.top;
+
+        // the hole
+        sign.style.setProperty('--hx', (x - 45) + 'px');
+        sign.style.setProperty('--hy', (y - 45) + 'px');
+        sign.classList.add('punched');
+
+        // the cracks
+        var svgNS = 'http://www.w3.org/2000/svg';
+        var cracks = document.createElementNS(svgNS, 'svg');
+        cracks.setAttribute('class', 'punch-cracks');
+        cracks.setAttribute('viewBox', '-90 -90 180 180');
+        cracks.style.left = (x - 90) + 'px';
+        cracks.style.top = (y - 90) + 'px';
+        ['M30 -20 L52 -34 L70 -30', 'M38 10 L60 18 L76 38', 'M8 40 L4 62 L18 80',
+         'M-30 30 L-52 44 L-60 70', 'M-40 -6 L-64 -14 L-82 -4', 'M-12 -40 L-20 -62 L-8 -82']
+          .forEach(function (d) {
+            var p = document.createElementNS(svgNS, 'path');
+            p.setAttribute('d', d);
+            cracks.appendChild(p);
+          });
+        sign.appendChild(cracks);
+
+        // the flying chips
+        var chips = [];
+        for (var i = 0; i < 8; i++) {
+          var chip = document.createElement('span');
+          chip.className = 'punch-chip';
+          var angle = Math.random() * Math.PI * 2;
+          var dist = 60 + Math.random() * 70;
+          chip.style.left = (x - 6) + 'px';
+          chip.style.top = (y - 5) + 'px';
+          chip.style.setProperty('--dx', Math.cos(angle) * dist + 'px');
+          chip.style.setProperty('--dy', Math.sin(angle) * dist + 40 + 'px');
+          chip.style.setProperty('--r', (Math.random() * 540 - 270) + 'deg');
+          sign.appendChild(chip);
+          chips.push(chip);
+        }
+
+        // open the form after a beat
+        setTimeout(function () {
+          var win = window.open(sign.href, '_blank');
+          if (win) { win.opener = null; } else { window.location.href = sign.href; }
+        }, 350);
+
+        // patch the sign back up for when they come back
+        setTimeout(function () {
+          sign.classList.remove('punched');
+          cracks.remove();
+          chips.forEach(function (c) { c.remove(); });
+        }, 1600);
+      });
+    });
+  </script>
+
+
+  <!-- ===== GUESTBOOK PORTAL + STORM ===== -->
+  <script>
+    var guestbook = document.getElementById('guestbook-icon');
+
+    guestbook.addEventListener('click', function (e) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      e.preventDefault();
+
+      // a second click skips straight to the guestbook
+      if (guestbook.classList.contains('portal-open')) {
+        window.location.href = guestbook.href;
+        return;
+      }
+
+      guestbook.classList.add('portal-open');
+
+      // the black screen
+      var storm = document.createElement('div');
+      storm.className = 'storm';
+      document.body.appendChild(storm);
+
+      // lightning strikes, spaced apart so it never flashes more than 3 times a second
+      [500, 1100, 1700].forEach(function (time) {
+        setTimeout(function () { strike(storm); }, time);
+      });
+
+      // go to the guestbook
+      setTimeout(function () {
+        window.location.href = guestbook.href;
+      }, 2300);
+    });
+
+    // one lightning strike: a dim flash plus a jagged bolt
+    function strike(storm) {
+      storm.classList.remove('flash');
+      void storm.offsetWidth;          // restarts the flash animation
+      storm.classList.add('flash');
+
+      var w = window.innerWidth;
+      var h = window.innerHeight;
+      var x = Math.random() * w;
+      var y = 0;
+      var points = [x + ',' + y];
+
+      // zig-zag down from the top of the screen
+      while (y < h * (0.5 + Math.random() * 0.4)) {
+        x += (Math.random() - 0.5) * 120;
+        y += 30 + Math.random() * 50;
+        points.push(x + ',' + y);
+      }
+
+      var svgNS = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('class', 'bolt');
+      svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h);
+      var line = document.createElementNS(svgNS, 'polyline');
+      line.setAttribute('points', points.join(' '));
+      svg.appendChild(line);
+      storm.appendChild(svg);
+
+      setTimeout(function () { svg.remove(); }, 500);
+    }
+
+    // clean everything up if they come back with the back button
+    window.addEventListener('pageshow', function () {
+      guestbook.classList.remove('portal-open');
+      document.querySelectorAll('.storm').forEach(function (s) { s.remove(); });
+    });
+  </script>
+
+
+  <!-- ===== SWITCHBOARD OPEN / CLOSE ===== -->
+  <script>
+    var phone = document.getElementById('chat-phone');
+    var switchboard = document.getElementById('switchboard');
+
+    // the phone picks up or hangs up
+    phone.addEventListener('click', function (e) {
+      e.preventDefault();
+      switchboard.classList.toggle('open');
+    });
+
+    // hang up button
+    switchboard.querySelector('.chat-hangup').addEventListener('click', function (e) {
+      e.preventDefault();
+      switchboard.classList.remove('open');
+    });
+  </script>
+
+</body>
+</html>

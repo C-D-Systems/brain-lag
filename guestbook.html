@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guestbook ~ Brain Lag</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="guestbook.css?v=3">
+</head>
+<body>
+
+  <!-- ===== THE ALLEY ===== -->
+  <div class="alley">
+    <div class="scene-inner">
+
+      <img src="brooklyn-alley.png" class="scene-bg" alt="Brooklyn alley">
+
+      <!-- trash can = back to the homepage -->
+      <a href="/" class="home-can">
+        <img src="trash-can.png" alt="Home">
+        <span class="can-label">home</span>
+      </a>
+
+      <!-- SIGN HERE sign = opens the guestbook note -->
+      <a href="#sign" class="sign-here" aria-label="Sign the guestbook">
+        <img src="guestbook-sign.png" alt="">
+      </a>
+
+    </div>
+  </div>
+
+
+  <!-- ===== THE FALLING PAPERS =====
+       x = left to right spot, land = how high it rests, rot = final tilt,
+       delay = when it starts, dur = how long it floats, s = sways left (-1) or right (1) first -->
+  <div class="papers">
+    <img class="paper" src="page-folded.png" alt="" style="--x:  1.9%; --land: 16px; --rot:  3.2deg; --delay: 4.3s; --dur: 6.5s; --s: -1;">
+    <img class="paper" src="page-large.png"  alt="" style="--x:  5.5%; --land: 23px; --rot: -3.1deg; --delay: 0.7s; --dur: 7.3s; --s:  1;">
+    <img class="paper" src="page-small.png"  alt="" style="--x:  8.6%; --land: 11px; --rot:  4.6deg; --delay: 3.1s; --dur: 6.4s; --s:  1;">
+    <img class="paper" src="page-pic.png"    alt="" style="--x: 12.4%; --land:  1px; --rot: -1.3deg; --delay: 1.2s; --dur: 6.1s; --s: -1;">
+    <img class="paper" src="page-wavy.png"   alt="" style="--x: 14.1%; --land: 17px; --rot: -3.6deg; --delay: 3.2s; --dur: 7.2s; --s:  1;">
+    <img class="paper" src="page-curled.png" alt="" style="--x: 17.6%; --land:  8px; --rot: -5.0deg; --delay: 1.6s; --dur: 6.6s; --s: -1;">
+    <img class="paper" src="page-folded.png" alt="" style="--x: 19.4%; --land: 16px; --rot: -2.8deg; --delay: 4.2s; --dur: 7.0s; --s:  1;">
+    <img class="paper" src="page-large.png"  alt="" style="--x: 25.0%; --land:  0px; --rot: -6.5deg; --delay: 0.3s; --dur: 6.9s; --s: -1;">
+    <img class="paper" src="page-small.png"  alt="" style="--x: 26.9%; --land: 16px; --rot: -5.4deg; --delay: 1.3s; --dur: 6.2s; --s: -1;">
+    <img class="paper" src="page-pic.png"    alt="" style="--x: 28.8%; --land: 12px; --rot: -0.9deg; --delay: 3.5s; --dur: 6.0s; --s: -1;">
+    <img class="paper" src="page-wavy.png"   alt="" style="--x: 34.3%; --land:  5px; --rot: -3.1deg; --delay: 1.0s; --dur: 7.8s; --s:  1;">
+    <img class="paper" src="page-curled.png" alt="" style="--x: 36.3%; --land: 11px; --rot:  2.9deg; --delay: 1.1s; --dur: 6.7s; --s: -1;">
+    <img class="paper" src="page-folded.png" alt="" style="--x: 41.2%; --land:  0px; --rot: -2.8deg; --delay: 4.3s; --dur: 7.6s; --s:  1;">
+    <img class="paper" src="page-large.png"  alt="" style="--x: 41.5%; --land:  4px; --rot:  1.8deg; --delay: 3.9s; --dur: 6.8s; --s: -1;">
+    <img class="paper" src="page-small.png"  alt="" style="--x: 45.7%; --land:  2px; --rot: -4.1deg; --delay: 1.2s; --dur: 7.5s; --s: -1;">
+    <img class="paper" src="page-pic.png"    alt="" style="--x: 49.5%; --land:  3px; --rot:  5.8deg; --delay: 0.7s; --dur: 7.0s; --s:  1;">
+    <img class="paper" src="page-wavy.png"   alt="" style="--x: 51.7%; --land:  6px; --rot: -5.1deg; --delay: 0.8s; --dur: 7.6s; --s:  1;">
+    <img class="paper" src="page-curled.png" alt="" style="--x: 56.0%; --land: 11px; --rot:  4.2deg; --delay: 2.1s; --dur: 6.3s; --s:  1;">
+    <img class="paper" src="page-folded.png" alt="" style="--x: 58.6%; --land:  7px; --rot:  1.8deg; --delay: 4.1s; --dur: 7.5s; --s: -1;">
+    <img class="paper" src="page-large.png"  alt="" style="--x: 61.8%; --land: 27px; --rot: -0.9deg; --delay: 2.4s; --dur: 7.6s; --s:  1;">
+    <img class="paper" src="page-small.png"  alt="" style="--x: 64.2%; --land: 27px; --rot: -5.2deg; --delay: 0.3s; --dur: 7.0s; --s:  1;">
+    <img class="paper" src="page-pic.png"    alt="" style="--x: 66.7%; --land:  5px; --rot:  3.7deg; --delay: 4.9s; --dur: 6.2s; --s:  1;">
+    <img class="paper" src="page-wavy.png"   alt="" style="--x: 72.3%; --land: 29px; --rot: -4.1deg; --delay: 4.6s; --dur: 7.2s; --s: -1;">
+    <img class="paper" src="page-curled.png" alt="" style="--x: 74.9%; --land: 28px; --rot: -4.2deg; --delay: 0.4s; --dur: 6.2s; --s: -1;">
+    <img class="paper" src="page-folded.png" alt="" style="--x: 76.9%; --land: 29px; --rot: -3.2deg; --delay: 1.8s; --dur: 6.1s; --s:  1;">
+    <img class="paper" src="page-large.png"  alt="" style="--x: 81.5%; --land: 27px; --rot:  0.6deg; --delay: 2.4s; --dur: 6.2s; --s: -1;">
+    <img class="paper" src="page-small.png"  alt="" style="--x: 85.0%; --land:  0px; --rot:  4.0deg; --delay: 3.1s; --dur: 7.0s; --s:  1;">
+    <img class="paper" src="page-pic.png"    alt="" style="--x: 87.2%; --land:  2px; --rot: -7.0deg; --delay: 4.4s; --dur: 7.8s; --s: -1;">
+    <img class="paper" src="page-wavy.png"   alt="" style="--x: 91.3%; --land: 20px; --rot:  3.1deg; --delay: 4.2s; --dur: 6.2s; --s:  1;">
+  </div>
+
+
+  <!-- ===== THE GUESTBOOK form (pops up from the SIGN HERE sign) ===== -->
+  <div id="sign" class="note-popup">
+
+    <form class="note" id="gb-form">
+      <a href="#" class="note-close" aria-label="Close">&#10005;</a>
+      <h2>sign the wall</h2>
+
+      <label>name or alias
+        <input type="text" name="entry.178692698" maxlength="40" required>
+      </label>
+
+      <label>your site (optional)
+        <input type="url" name="entry.6297106" placeholder="https://">
+      </label>
+
+      <label>leave a note
+        <textarea name="entry.634111628" rows="5" maxlength="500" required></textarea>
+      </label>
+
+      <button type="submit" id="gb-button">stick it up</button>
+      <p class="note-small" id="gb-status">every note gets read before it hits the wall</p>
+    </form>
+
+    <!-- shows after the note goes through -->
+    <div class="note note-thanks" id="gb-thanks" hidden>
+      <a href="#" class="note-close" aria-label="Close">&#10005;</a>
+      <h2>got it.</h2>
+      <p>your note's in the pile. if it makes the wall, you'll see it here soon.</p>
+    </div>
+
+  </div>
+
+  <!-- invisible box the note gets sent through (Neocities allows this route) -->
+  <iframe name="gb-hidden" id="gb-hidden" style="display:none"></iframe>
+
+
+  <!-- ===== SENDING THE NOTE TO GOOGLE FORMS ===== -->
+  <script>
+    var GB_URL   = 'https://docs.google.com/forms/d/e/1FAIpQLSfa7EmRi_fBYR6GOWV5lyn3w7xMQLV9hGky7gX7rphV9b1suA/formResponse';
+    var gbForm   = document.getElementById('gb-form');
+    var gbThanks = document.getElementById('gb-thanks');
+    var gbFrame  = document.getElementById('gb-hidden');
+    var gbButton = document.getElementById('gb-button');
+    var gbStatus = document.getElementById('gb-status');
+    var gbNormal = gbStatus.textContent;
+
+    gbForm.addEventListener('submit', function (e) {
+      e.preventDefault();   // stops the normal send, which Neocities blocks
+
+      var params = new URLSearchParams(new FormData(gbForm));
+      params.append('submit', 'Submit');
+
+      gbButton.disabled = true;
+      gbButton.textContent = 'sticking...';
+
+      var done = false;
+
+      // no answer from Google in 10 seconds
+      var timer = setTimeout(function () {
+        if (done) return;
+        done = true;
+        gbButton.disabled = false;
+        gbButton.textContent = 'stick it up';
+        gbStatus.textContent = "the wind took it. try again in a sec.";
+      }, 10000);
+
+      // Google answered: the note is in
+      gbFrame.onload = function () {
+        if (done) return;
+        done = true;
+        clearTimeout(timer);
+        gbForm.reset();
+        gbForm.hidden = true;
+        gbThanks.hidden = false;
+        gbButton.disabled = false;
+        gbButton.textContent = 'stick it up';
+        gbStatus.textContent = gbNormal;
+      };
+
+      gbFrame.src = GB_URL + '?' + params.toString();
+    });
+
+    // reopening the note shows a fresh form again
+    window.addEventListener('hashchange', function () {
+      if (location.hash === '#sign') {
+        gbForm.hidden = false;
+        gbThanks.hidden = true;
+      }
+    });
+  </script>
+
+</body>
+</html>

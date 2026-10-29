@@ -1,0 +1,268 @@
+/* ==========================================================
+   BRAIN LAG ~ Guest-Book/guestbook.css
+   the alley, the trash can home button, the SIGN HERE sign,
+   the blowing papers, and the guestbook note popup
+   ========================================================== */
+
+/* full-screen page, no scrolling */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #1b1512;        /* dark, so any edges match the alley */
+}
+
+
+/* ---------- the alley ---------- */
+
+/* full-screen window the alley sits in */
+.alley {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;           /* trims the extra edges */
+}
+
+/* the alley, can and sign, scaled together so they stay in place */
+.scene-inner {
+  container-type: size;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100vw, 150vh);   /* these two numbers assume a 3:2 photo */
+  height: max(100vh, 66.67vw);
+}
+
+.scene-bg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* phones held upright: show the whole alley so the can isn't cut off */
+@media (max-aspect-ratio: 1/1) {
+  .scene-inner {
+    width: 100vw;
+    height: 66.67vw;
+  }
+}
+
+
+/* ---------- the trash can (the way home) ---------- */
+
+.home-can {
+  position: absolute;
+  left: 71%;                 /* sideways: bigger = further right */
+  top: 63%;                  /* up/down: bigger = lower */
+  width: 8.6%;               /* size of the can */
+  text-decoration: none;
+}
+
+.home-can img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.2s;
+}
+
+.home-can:hover img,
+.home-can:focus-visible img {
+  transform: rotate(-5deg);  /* little wobble on hover */
+}
+
+/* the "home" tag sprayed on the can */
+.can-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;                  /* raise to move it down the can */
+  transform: translate(-50%, -50%) rotate(-6deg);
+  font-family: "Courier New", monospace;
+  font-weight: bold;
+  font-size: clamp(10px, 1.3vw, 20px);
+  letter-spacing: 1px;
+  color: #ffffff;
+  text-shadow: 1px 1px 0 #000000, -1px -1px 0 #000000;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+
+/* ---------- the SIGN HERE sign (opens the guestbook note) ---------- */
+
+.sign-here {
+  --glow: 255, 214, 10;      /* glow color (red, green, blue): change this one line */
+  position: absolute;
+  left: 80%;                 /* sideways: bigger = further right */
+  top: 26%;                  /* up/down: bigger = lower */
+  width: 5.5%;               /* size of the sign */
+  z-index: 2;                /* above the papers so it's clickable */
+  cursor: pointer;
+}
+
+.sign-here img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: filter 0.25s;
+}
+
+/* the sign glows around its real outline when hovered */
+.sign-here:hover,
+.sign-here:focus-visible {
+  outline: none;
+}
+
+.sign-here:hover img,
+.sign-here:focus-visible img {
+  filter:
+    drop-shadow(0 0 18px rgba(var(--glow), 0.9))    /* tight bright edge */
+    drop-shadow(0 0 24px rgba(var(--glow), 0.5));  /* wider soft halo */
+}
+
+
+/* ---------- the blowing papers ---------- */
+
+/* invisible full-screen layer that holds the papers */
+.papers {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;                /* keeps papers in front of the alley */
+  pointer-events: none;      /* lets clicks pass through to the can and sign */
+}
+
+/* one paper ~ lands at the bottom of the screen */
+.paper {
+  position: absolute;
+  bottom: var(--land, 0px);
+  left: var(--x);
+  width: 120px;              /* size of each paper */
+  height: auto;
+  animation: paper-fall var(--dur) cubic-bezier(0.25, 0.6, 0.4, 1) var(--delay) both;
+}
+
+/* papers get blown in from the left, tumble, then land and skid */
+@keyframes paper-fall {
+  0%   { transform: translate(calc(-100vw - 200px), -50vh) rotate(-30deg); }
+  25%  { transform: translate(-55vw, -60vh) rotate(160deg); }          /* gust lifts them */
+  50%  { transform: translate(-25vw, -40vh) rotate(290deg); }
+  70%  { transform: translate(-8vw, calc(-14vh + 10px * var(--s))) rotate(calc(330deg + 8deg * var(--s))); }
+  85%  { transform: translate(-2vw, 0) rotate(calc(354deg + var(--rot))); }   /* touches down */
+  100% { transform: translate(0, 0) rotate(calc(360deg + var(--rot))); }      /* skids to a stop */
+}
+
+
+/* ---------- the guestbook note (pops up from SIGN HERE) ---------- */
+
+.note-popup {
+  display: none;             /* hidden until the sign is clicked */
+  position: fixed;
+  inset: 0;
+  z-index: 10;               /* above the alley and the papers */
+  background: rgba(0, 0, 0, 0.55);
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.note-popup:target {
+  display: flex;             /* shows when the address ends in #sign */
+}
+
+.note {
+  position: relative;
+  width: min(340px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  background: #f3ead8;       /* old paper color */
+  padding: 24px 22px 18px;
+  transform: rotate(-2deg);  /* slightly crooked, like it's taped up */
+  box-shadow: 4px 6px 0 rgba(0, 0, 0, 0.5);
+  font-family: "Courier New", monospace;
+  color: #1b1512;
+}
+
+.note[hidden] {
+  display: none;
+}
+
+.note h2 {
+  margin: 0 0 14px;
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.note label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.note input,
+.note textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 4px;
+  padding: 6px;
+  border: 0;
+  border-bottom: 2px solid #1b1512;
+  background: transparent;
+  font: inherit;
+  resize: vertical;
+}
+
+.note input:focus,
+.note textarea:focus {
+  outline: none;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.note button {
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: #1b1512;
+  color: #f3ead8;
+  border: 0;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.note button:hover {
+  transform: rotate(2deg);
+}
+
+.note-close {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  color: #1b1512;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.note-small {
+  margin: 12px 0 0;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+
+/* ---------- calmer version for visitors who prefer less motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  /* papers skip straight to where they land */
+  .paper {
+    animation-duration: 1ms;
+    animation-delay: 0s;
+  }
+
+  .note button:hover {
+    transform: none;
+  }
+}

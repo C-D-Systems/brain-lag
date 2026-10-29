@@ -1,0 +1,661 @@
+/* ==========================================================
+   BRAIN LAG ~ style.css
+   shared styles + homepage
+
+   Rooms with their own CSS files:
+     burn-book-1/burn-book-1.css  ~ the Dark Room
+     Guest-Book/guestbook.css     ~ the alley & falling papers
+     Gallery/gallery.css          ~ the gallery
+
+   TABLE OF CONTENTS (use Ctrl + F to jump to a section)
+     1. FONTS
+     2. WHOLE SITE (page, text, links)
+     3. HOMEPAGE ~ title & top bar
+     4. HOMEPAGE ~ juggler & welcome box
+     5. HOMEPAGE ~ whiteboard
+     6. HOMEPAGE ~ your art sign (punch effect)
+     7. HOMEPAGE ~ bottom bar (chat phone + guestbook)
+     8. PHONE SCREENS (keep this at the very bottom)
+   ========================================================== */
+
+
+/* ==========================================================
+   1. FONTS
+   ========================================================== */
+
+@font-face {
+  font-family: "Lazy Sans";
+  src: url("Lazy Sans.ttf") format("truetype");
+}
+
+
+/* ==========================================================
+   2. WHOLE SITE (page, text, links)
+   ========================================================== */
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #ff0900;
+  background-image: url("https://transparenttextures.com/patterns/diagmonds-light.png");
+  color: white;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 16px;
+  font-family: "Courier New", monospace;
+  font-size: 18px;
+}
+
+a {
+  color: #4144bc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h2 {
+  font-size: 60px;
+  margin-top: 25px;
+  margin-bottom: 5px;
+}
+
+.welcome {
+  font-family: "Lazy Sans", sans-serif;
+}
+
+/* dissolve between pages */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 1.5s;   /* how long the dissolve takes */
+  }
+}
+
+
+/* ==========================================================
+   3. HOMEPAGE ~ title & top bar
+   burn book + your art = gallery, all in one row
+   ========================================================== */
+
+.site-title {                /* "Brain Lag" */
+  font-family: "Lazy Sans", sans-serif;
+  font-size: 125px;
+  font-weight: normal;
+  margin: 0;
+  padding-top: 20px;
+  letter-spacing: 4px;       /* space between letters; negative pulls them closer */
+  word-spacing: 10px;        /* gap between "Brain" and "Lag" */
+  line-height: 1;            /* lower = tighter above and below */
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;                 /* space between each piece */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+.side-links {
+  display: flex;
+  white-space: nowrap;
+}
+
+/* the + and = signs */
+.symbol {
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 2px 2px 0 #000000;
+}
+
+/* gallery icon ~ museum spotlight */
+.spotlit {
+  position: relative;
+  display: inline-block;
+}
+
+/* the lamp fixture below the painting */
+.spotlit::after {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 12px;
+  background: #f4a6a2;
+  border-radius: 30px 30px 0 0;
+  box-shadow: 0 14px 0 -4px #f4a6a2;
+}
+
+/* the beam of light shining upward */
+.spotlit::before {
+  content: "";
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160%;
+  height: calc(100% + 40px);
+  background: linear-gradient(to top,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.25) 70%,
+    rgba(255, 255, 255, 0));
+  clip-path: polygon(0 0, 100% 0, 58% 100%, 42% 100%);   /* cone opening upward */
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+/* light switches on when you hover */
+.spotlit:hover::before {
+  opacity: 1;
+}
+/* ----- burn book + person ----- */
+
+.reader {
+  position: relative;
+  display: inline-block;
+}
+
+.reader-person img {
+  display: block;
+}
+
+/* the burn book, sitting in his hands */
+.reader-book {
+  position: absolute;
+  left: 72%;                 /* move left/right */
+  top: 28%;                  /* move up/down */
+  width: 32%;                /* book size */
+  transform: rotate(10deg);  /* tilt to sit on his palm */
+  z-index: 2;
+}
+
+.reader-book img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.reader-book:hover {
+  transform: rotate(6deg) scale(1.1);
+  filter: drop-shadow(0 0 10px #ffd60a);
+}
+
+/* copy of the person on top, so he looks like he's in front of the book */
+.reader-front {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;      /* clicks pass right through him */
+}
+
+/* ==========================================================
+   4. HOMEPAGE ~ juggler & welcome box
+   ========================================================== */
+
+.juggler {
+  display: block;
+  margin: -150px auto 0;     /* negative number pulls him up */
+  position: relative;
+  z-index: 6;                /* keeps him in front */
+}
+
+.intro-box {
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+  padding: 10px 20px;
+  max-width: 700px;
+  margin: 10px auto 0;
+}
+
+.intro {
+  margin-top: 5px;
+}
+
+
+/* ==========================================================
+   5. HOMEPAGE ~ whiteboard
+   ========================================================== */
+
+.art-board {
+  position: absolute;
+  top: 125px;                /* move up/down */
+  right: 1800px;             /* move left/right */
+  width: 600px;              /* size */
+  z-index: 10;
+}
+
+
+/* ==========================================================
+   6. HOMEPAGE ~ your art sign (punch effect)
+   ========================================================== */
+
+.punch-sign {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  --chip-color: #d9741c;     /* bamboo orange */
+  --chip-color-2: #5e1f4a;   /* flower panel purple */
+  --crack-color: #1a0812;
+}
+
+.punch-sign img {
+  display: block;
+}
+
+/* the hole */
+.punch-sign.punched img {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 92'%3E%3Cpolygon points='46,2 56,18 73,8 71,28 89,30 77,46 90,61 71,65 75,85 56,75 46,90 36,75 16,85 21,65 2,59 16,46 4,30 22,28 18,8 36,18' fill='black'/%3E%3C/svg%3E"), linear-gradient(#000 0 0);
+  -webkit-mask-position: var(--hx) var(--hy), 0 0;
+  -webkit-mask-size: 90px 90px, 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-composite: xor;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 92'%3E%3Cpolygon points='46,2 56,18 73,8 71,28 89,30 77,46 90,61 71,65 75,85 56,75 46,90 36,75 16,85 21,65 2,59 16,46 4,30 22,28 18,8 36,18' fill='black'/%3E%3C/svg%3E"), linear-gradient(#000 0 0);
+  mask-position: var(--hx) var(--hy), 0 0;
+  mask-size: 90px 90px, 100% 100%;
+  mask-repeat: no-repeat;
+  mask-composite: exclude;
+}
+
+/* the jolt */
+.punch-sign.punched {
+  animation: punch-jolt 0.3s ease-out;
+}
+
+@keyframes punch-jolt {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(0.93) rotate(-2deg); }
+  60%  { transform: scale(1.02) rotate(1deg); }
+  100% { transform: scale(1); }
+}
+
+/* the cracks */
+.punch-cracks {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.punch-cracks path {
+  fill: none;
+  stroke: var(--crack-color);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  animation: crack-draw 0.25s ease-out 0.05s forwards;
+}
+
+@keyframes crack-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* the flying chips, alternating orange and purple */
+.punch-chip {
+  position: absolute;
+  width: 12px;
+  height: 10px;
+  background: var(--chip-color);
+  border: 1px solid #222;
+  clip-path: polygon(0 20%, 60% 0, 100% 50%, 70% 100%, 10% 80%);
+  pointer-events: none;
+  animation: chip-fly 0.6s ease-out forwards;
+}
+
+.punch-chip:nth-of-type(even) {
+  background: var(--chip-color-2);
+}
+
+@keyframes chip-fly {
+  to { transform: translate(var(--dx), var(--dy)) rotate(var(--r)); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .punch-sign.punched,
+  .punch-chip,
+  .punch-cracks path { animation: none; }
+  .punch-cracks path { stroke-dashoffset: 0; }
+}
+
+
+/* ==========================================================
+   7. HOMEPAGE ~ bottom bar (chat phone + guestbook)
+   ========================================================== */
+
+.bottom-bar {
+  display: flex;
+  justify-content: center;   /* flex-start = slide left, flex-end = slide right */
+  align-items: flex-end;     /* lines up their bottoms */
+  gap: 40px;                 /* space between phone and guestbook */
+  margin: 40px 0 20px;       /* space above and below the bar */
+}
+
+#chat-phone img {
+  width: 120px;              /* phone size */
+  height: auto;
+  display: block;
+}
+
+#guestbook-icon img {
+  width: 130px;              /* guestbook size */
+  height: auto;
+  display: block;
+}
+
+#chat-phone:hover {
+  transform: rotate(-4deg) scale(1.05);
+}
+
+#guestbook-icon:hover {
+  transform: rotate(3deg) scale(1.05);
+}
+
+/* ----- guestbook portal ----- */
+
+#guestbook-icon {
+  position: relative;
+  display: inline-block;
+}
+
+#guestbook-icon img {
+  position: relative;
+  z-index: 1;                /* character sits in front of the portal */
+}
+
+/* the portal (hidden until clicked) */
+#guestbook-icon::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;             /* move the portal up/down */
+  width: 200%;               /* portal size compared to the character */
+  aspect-ratio: 1;
+  background: url("portal.png") bottom center / contain no-repeat;
+  image-rendering: pixelated;            /* keeps the pixel art crisp */
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: bottom center;       /* grows up from the puddle */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* when clicked: portal rises, then pulses */
+#guestbook-icon.portal-open::before {
+  animation:
+    portal-rise 1s ease-out forwards,
+    portal-glow 0.4s ease-in-out 0.4s infinite alternate;
+}
+
+/* when clicked: character gets pulled in after the portal is up */
+#guestbook-icon.portal-open img {
+  animation: sucked-in 0.8s ease-in 0.55s forwards;
+}
+
+/* no hover wobble while it's happening */
+#guestbook-icon.portal-open {
+  transform: none;
+  z-index: 1001;
+}
+
+/* rises out of the puddle, overshoots a little, settles */
+@keyframes portal-rise {
+  0%   { transform: translateX(-50%) scaleY(0); }
+  70%  { transform: translateX(-50%) scaleY(1.08); }
+  100% { transform: translateX(-50%) scaleY(1); }
+}
+
+/* pulsing purple glow */
+@keyframes portal-glow {
+  from { filter: drop-shadow(0 0 25px #4b0f6b); }
+  to   { filter: drop-shadow(0 0 18px #9d4edd) drop-shadow(0 0 25px #0b3d0b); }
+}
+
+/* character spins and shrinks into the portal */
+@keyframes sucked-in {
+  to {
+    transform: scale(0) rotate(720deg);
+    opacity: 0;
+    filter: brightness(0.3);
+  }
+}
+
+/* ----- storm (black screen + lightning) ----- */
+
+.storm {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);   /* last number = darkness */
+  z-index: 1000;
+  opacity: 0;
+  animation: storm-in 0.4s ease-out forwards;
+}
+
+@keyframes storm-in {
+  to { opacity: 1; }
+}
+
+/* the flash (kept dim on purpose so it's not harsh on the eyes) */
+.storm::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #c9c3ff;       /* pale purple flash */
+  opacity: 0;
+  pointer-events: none;
+}
+
+.storm.flash::after {
+  animation: storm-flash 0.35s ease-out;
+}
+
+@keyframes storm-flash {
+  0%   { opacity: 0; }
+  10%  { opacity: 0.3; }     /* flash brightness: keep this low */
+  100% { opacity: 0; }
+}
+
+/* the lightning bolt */
+.bolt {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  animation: bolt-fade 0.5s ease-out forwards;
+}
+
+.bolt polyline {
+  fill: none;
+  stroke: #e6dcff;           /* bolt color */
+  stroke-width: 3;           /* bolt thickness */
+  filter: drop-shadow(0 0 6px #9d4edd) drop-shadow(0 0 14px #0b3d0b);  /* purple glow */
+}
+
+@keyframes bolt-fade {
+  0%   { opacity: 1; }
+  60%  { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+/* the switchboard docks on the right side (hidden until the phone is clicked) */
+.chat-popup {
+  position: fixed;
+  top: 120px;                /* distance from the top: lower = higher up */
+  right: max(50px, calc((100vw - 855px) / 4 - 166px + 80px));   /* centered between the gallery and the edge */
+  z-index: 900;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(120%);
+  transition: transform 0.35s ease, opacity 0.35s, visibility 0.35s;
+}
+
+/* slides in when the phone is picked up */
+.chat-popup.open {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* the window itself */
+.chat-window {
+  background: #000000;
+  border: 4px solid #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 6px 6px 0 #000000;
+  transform: rotate(-1deg);  /* slightly crooked */
+}
+
+/* "The Switchboard" title + hang up button */
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 10px;
+  font-family: "Lazy Sans", sans-serif;
+  font-size: 24px;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+.chat-hangup {
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  color: #ffffff;
+  background: #cc0000;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.chat-hangup:hover {
+  text-decoration: none;
+  background: #ff0900;
+}
+
+/* little note under the chat */
+.chat-note {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #ffffff;
+  opacity: 0.7;
+}
+
+/* ==========================================================
+   8. PHONE SCREENS (keep this at the very bottom)
+   ========================================================== */
+
+@media (max-width: 600px) {
+  .top-bar {
+    gap: 12px;
+  }
+
+  .top-bar img {                /* shrinks the burn book, art & gallery */
+    height: 110px;
+    width: auto;
+  }
+
+  .top-bar .reader-book img {   /* keeps the burn book sized to the person */
+    height: auto;
+    width: 100%;
+  }
+
+  .symbol {
+    font-size: 28px;
+  }
+
+  .bottom-bar {
+    gap: 20px;
+  }
+
+  #chat-phone img,
+  #guestbook-icon img {
+    width: 90px;                /* smaller icons on phones */
+  }
+
+  .chat-popup {                 /* chat hugs the corner on phones */
+    right: 8px;
+    top: 8px;
+  }
+}
+
+/* ===== phone booth frame for the Switchboard ===== */
+.booth {
+  position: relative;
+  width: min(820px, 95vw, calc(100vh - 40px));  /* a bit bigger so the chat isn't cramped */
+}
+
+.booth-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;   /* clicks go through to the chat */
+}
+
+.booth-chat {             /* the center gap between the booths */
+  position: absolute;
+  z-index: 3;
+  left: 24%;              /* move left/right */
+  top: 24%;               /* move up/down */
+  width: 27%;             /* chat width */
+  height: 70%;            /* chat height */
+}
+
+.booth-footer {             /* hang up button, sitting over Chatango's X */
+  position: absolute;
+  z-index: 4;               /* above the chat so it covers the X */
+  left: 24%;                /* same as .booth-chat */
+  width: 27%;               /* same as .booth-chat */
+  top: 24%;                 /* same as .booth-chat: the top edge of the chat */
+  text-align: right;        /* pushes the button to the right corner */
+  pointer-events: none;     /* only the button itself is clickable */
+}
+
+.booth-footer .chat-hangup {
+  pointer-events: auto;
+  display: inline-block;
+   background: #cc0000;      /* red */
+  color: #ffffff;           /* white text */
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 0 0 0 6px;
+}
+
+.booth-footer .chat-hangup:hover {
+  background: #ff0900;      /* brighter red on hover */
+  
+}
+
+/* pin the booth to the top right corner */
+.chat-popup {
+  top: -60px;
+  right: -100px;
+}
+
+
+
